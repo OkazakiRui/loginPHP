@@ -15,6 +15,9 @@ session_destroy();
 </head>
 <body>
     <h2>ログインフォーム</h2>
+    <?php if(isset($err["msg"])): ?>
+      <p style="color:red;"><?php echo $err["msg"]; ?></p>
+    <?php endif; ?>
     <form method="post" action="top.php">
       <p>
         <label>メールアドレス：<input type="text" name="email" /></label>

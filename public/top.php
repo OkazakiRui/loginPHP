@@ -24,8 +24,16 @@ if(count($err) !== 0){
   return;
 }
 
-// ログイン成功時の処理
+// ログイン可否のリクエスト
 $result = UserLogic::login($email, $password);
+
+// ログイン失敗時の処理
+if(!$result){
+  header("location: login.php");
+  return;
+}
+
+echo "ログイン成功です。";
 
 ?>
 
