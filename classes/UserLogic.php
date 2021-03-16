@@ -63,7 +63,7 @@ class UserLogic{
       $_SESSION["login_user"] = $user;
       $result = true;
       return $result;
-      
+
     }else{
       $_SESSION["msg"] = "パスワードが一致しません。";
       return $result;
@@ -79,20 +79,20 @@ class UserLogic{
 
   public static function getUserByEmail($email){
     $result = false;
-
+    
     // SQLの準備
     $sql = "select * from users where email = ?";
-
+    
     $arr = [];
     $arr[] = $email;
-
+    
     // SQLの実行
     try{
       $stmt = connect() -> prepare($sql);
       // $result = $stmt -> execute($email);
       $stmt -> execute($arr);
       // executeの引数は配列である必要がある。
-
+      
       // SQLの結果を返す
       $user = $stmt -> fetch();
       return $user;
@@ -100,10 +100,24 @@ class UserLogic{
     }catch(\Exception $e){
       return false;
     }
-
-
   }
-  
+
+
+  /**
+   * ログインしているかを判別する
+   * @param void
+   * @return boolean $result
+   */
+  public static function checkLogin(){
+    $result = false;
+
+    // セッションにログインユーザーが履いていなかったらfalse
+    if(isset($_SESSION["login_user"]) && $_SESSION["login_user"]["id"] !== 0 ){
+      return $result = true;
+    }
+
+    return $result;
+  }
 
 }
 
